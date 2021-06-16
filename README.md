@@ -21,7 +21,7 @@ cd gobgp_demo
 ```
 - Run these commands 
 ```
-docker-compose -f docker-compose up -d
+docker-compose -f docker-compose.yml up -d
 ```
 ```
 docker images
