@@ -43,7 +43,7 @@ docker network ls | grep gobgp
 2b346040f380   gobgp_demo_test_net   bridge    local
 ```
 ```
-$ docker-compose ps
+docker-compose ps
  Name                Command               State    Ports 
 ----------------------------------------------------------
 gobgp_1   gobgpd -t yaml -f /etc/gob ...   Up      179/tcp
