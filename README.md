@@ -16,8 +16,8 @@ docker-compose version 1.27.4, build 40524192
 
 - Clone this repository 
 ```
-git clone 
-cd 
+git clone https://github.com/ksator/gobgp_demo.git
+cd gobgp_demo
 ```
 - Run these commands 
 ```
