@@ -1,3 +1,7 @@
+# About this repository
+
+GoBGP demo using Docker Compose 
+
 # Requirements to run this demo 
 
 - Install Docker 
