@@ -2,7 +2,7 @@
 
 GoBGP demo using Docker Compose 
 
-# Requirements to run this demo 
+# Requirements to run this repository 
 
 - Install Docker 
 - Install Docker Compose 
@@ -16,7 +16,7 @@ docker-compose --version
 docker-compose version 1.27.4, build 40524192
 ```
 
-# Instructions 
+# Instructions to use this repository
 
 - Clone this repository 
 ```
