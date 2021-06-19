@@ -1,6 +1,10 @@
 # About this repository
 
-GoBGP demo using Docker Compose 
+GoBGP demo using Docker Compose: 
+- This [docker-compose](docker-compose.yml) file use this [Dockerfile](Dockerfile)  
+- The GoBGP container "gobgp_1" uses this [configuration](gobgp1/gobgp.yml) file   
+- The GoBGP container "gobgp_2" uses this [configuration](gobgp2/gobgp.yml) file  
+
 
 # Requirements to run this repository 
 
