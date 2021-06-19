@@ -65,6 +65,7 @@ root@430539ef3813:/go# gobgp global
 AS:        65002
 Router-ID: 192.168.255.0
 Listening Port: 179, Addresses: 0.0.0.0, ::
+
 root@430539ef3813:/go# exit
 exit
 ```
