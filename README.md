@@ -21,15 +21,24 @@ docker-compose version 1.27.4, build 40524192
 - Clone this repository 
 ```
 git clone https://github.com/ksator/gobgp_demo.git
+```
+- Move to the local directory 
+```
 cd gobgp_demo
 ```
-- Run these commands 
+- Run this command to:
+  - Create the network
+  - Build the docker image
+  - Create the containers
+  - Start the containers 
+
 ```
 docker-compose -f docker-compose.yml up -d
 Creating network "gobgp_demo_test_net" with driver "bridge"
 Creating gobgp_2 ... done
 Creating gobgp_1 ... done
 ```
+- Run these commands to verify: 
 ```
 docker images
 REPOSITORY         TAG           IMAGE ID       CREATED          SIZE
@@ -50,6 +59,7 @@ docker-compose ps
 gobgp_1   gobgpd -t yaml -f /etc/gob ...   Up      179/tcp
 gobgp_2   gobgpd -t yaml -f /etc/gob ...   Up      179/tcp
 ```
+- Run these commands to verify BGP sessions state
 ```
 docker exec -it gobgp_1 gobgp neighbor
 Peer          AS  Up/Down State       |#Received  Accepted
@@ -69,6 +79,11 @@ Listening Port: 179, Addresses: 0.0.0.0, ::
 root@430539ef3813:/go# exit
 exit
 ```
+- Run this command to: 
+  - Stop the containers 
+  - Remove the containers
+  - Remove the networks 
+
 ```
 docker-compose down
 Stopping gobgp_1 ... done
