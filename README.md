@@ -35,18 +35,15 @@ docker images
 REPOSITORY         TAG           IMAGE ID       CREATED          SIZE
 ksator/gobgp       1.0           f8cbe28b2372   56 minutes ago   1.05GB
 golang             latest        b09f7387a719   12 days ago      862MB
-```
-```
+
 docker ps
 CONTAINER ID   IMAGE              COMMAND                  CREATED              STATUS              PORTS     NAMES
 430539ef3813   ksator/gobgp:1.0   "gobgpd -t yaml -f /…"   About a minute ago   Up About a minute   179/tcp   gobgp_2
 0b042e4b3a1a   ksator/gobgp:1.0   "gobgpd -t yaml -f /…"   About a minute ago   Up About a minute   179/tcp   gobgp_1
-```
-```
+
 docker network ls | grep gobgp
 2b346040f380   gobgp_demo_test_net   bridge    local
-```
-```
+
 docker-compose ps
  Name                Command               State    Ports 
 ----------------------------------------------------------
@@ -63,6 +60,7 @@ docker exec -it gobgp_2 bash
 root@430539ef3813:/go# gobgp neighbor
 Peer          AS  Up/Down State       |#Received  Accepted
 10.0.0.100 65001 00:00:57 Establ      |        0         0
+
 root@430539ef3813:/go# gobgp global  
 AS:        65002
 Router-ID: 192.168.255.0
