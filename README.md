@@ -24,7 +24,7 @@ docker-compose version 1.27.4, build 40524192
 
 - Clone this repository 
 ```
-git clone https://github.com/ksator/gobgp_demo.git
+git clone https://gitlab.aristanetworks.com/emea-se-team/gobgp_demo.git
 ```
 - Move to the local directory 
 ```
