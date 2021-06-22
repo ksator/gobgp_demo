@@ -1,15 +1,15 @@
 # About this repository
 
-GoBGP demo using Docker Compose: 
-- This [docker-compose file](docker-compose.yml) uses this [Dockerfile](Dockerfile)  
-- The GoBGP container "gobgp_1" uses this [configuration file](gobgp1/gobgp.yml)    
-- The GoBGP container "gobgp_2" uses this [configuration file](gobgp2/gobgp.yml) 
+GoBGP demo using Docker Compose:
+- This [docker-compose file](docker-compose.yml) uses this [Dockerfile](Dockerfile)
+- The GoBGP container "gobgp_1" uses this [configuration file](gobgp1/gobgp.yml)
+- The GoBGP container "gobgp_2" uses this [configuration file](gobgp2/gobgp.yml)
 
 
-# Requirements to run this repository 
+# Requirements to run this repository
 
-- Install Docker 
-- Install Docker Compose 
+- Install Docker
+- Install Docker Compose
 
 ```
 docker --version
@@ -22,11 +22,11 @@ docker-compose version 1.27.4, build 40524192
 
 # Instructions to use this repository
 
-- Clone this repository 
+- Clone this repository
 ```
 git clone https://gitlab.aristanetworks.com/emea-se-team/gobgp_demo.git
 ```
-- Move to the local directory 
+- Move to the local directory
 ```
 cd gobgp_demo
 ```
@@ -34,7 +34,7 @@ cd gobgp_demo
   - Create the network
   - Build the docker image
   - Create the containers
-  - Start the containers 
+  - Start the containers
 
 ```
 docker-compose -f docker-compose.yml up -d
@@ -42,7 +42,7 @@ Creating network "gobgp_demo_test_net" with driver "bridge"
 Creating gobgp_2 ... done
 Creating gobgp_1 ... done
 ```
-- Run these commands to verify: 
+- Run these commands to verify:
 ```
 docker images
 REPOSITORY         TAG           IMAGE ID       CREATED          SIZE
@@ -58,7 +58,7 @@ docker network ls | grep gobgp
 48e93609db19   gobgp_demo_test_net   bridge    local
 
 docker-compose ps
- Name                Command               State    Ports 
+ Name                Command               State    Ports
 ----------------------------------------------------------
 gobgp_1   gobgpd -t yaml -f /etc/gob ...   Up      179/tcp
 gobgp_2   gobgpd -t yaml -f /etc/gob ...   Up      179/tcp
@@ -84,7 +84,7 @@ BGP neighbor is 10.0.0.100, remote AS 65001
   BGP OutQ = 0, Flops = 0
   Hold time is 90, keepalive interval is 30 seconds
   Configured hold time is 90, keepalive interval is 30 seconds
-  
+
   Neighbor capabilities:
     multiprotocol:
         ipv4-unicast:   advertised and received
@@ -95,9 +95,9 @@ BGP neighbor is 10.0.0.100, remote AS 65001
     4-octet-as: advertised and received
     fqdn:       advertised and received
       Local:
-         name: 597af3ed77f6, domain: 
+         name: 597af3ed77f6, domain:
       Remote:
-         name: af448f6bd9fd, domain: 
+         name: af448f6bd9fd, domain:
   Message statistics:
                          Sent       Rcvd
     Opens:                  1          1
@@ -111,27 +111,27 @@ BGP neighbor is 10.0.0.100, remote AS 65001
     Advertised:             0
     Received:               0
     Accepted:               0
-    
+
 root@597af3ed77f6:/go#  exit
 exit
 ```
-Run these commands if you want to add a route (IPv4 address family): 
+Run these commands if you want to add a route (IPv4 address family):
 ```
 docker exec -it gobgp_2 bash
 
-root@597af3ed77f6:/go# gobgp global  
+root@597af3ed77f6:/go# gobgp global
 AS:        65002
 Router-ID: 192.168.255.0
 Listening Port: 179, Addresses: 0.0.0.0, ::
 
-root@597af3ed77f6:/go# gobgp global rib summary 
-Table afi:AFI_IP safi:SAFI_UNICAST 
+root@597af3ed77f6:/go# gobgp global rib summary
+Table afi:AFI_IP safi:SAFI_UNICAST
 Destination: 0, Path: 0
 
 root@597af3ed77f6:/go# gobgp global rib add 10.33.0.0/16 -a ipv4
 
-root@597af3ed77f6:/go# gobgp global rib summary 
-Table afi:AFI_IP safi:SAFI_UNICAST 
+root@597af3ed77f6:/go# gobgp global rib summary
+Table afi:AFI_IP safi:SAFI_UNICAST
 Destination: 1, Path: 1
 
 root@597af3ed77f6:/go# gobgp neighbor 10.0.0.100  adj-out -a ipv4
@@ -145,7 +145,7 @@ BGP neighbor is 10.0.0.100, remote AS 65001
   BGP OutQ = 0, Flops = 0
   Hold time is 90, keepalive interval is 30 seconds
   Configured hold time is 90, keepalive interval is 30 seconds
-  
+
   Neighbor capabilities:
     multiprotocol:
         ipv4-unicast:   advertised and received
@@ -156,9 +156,9 @@ BGP neighbor is 10.0.0.100, remote AS 65001
     4-octet-as: advertised and received
     fqdn:       advertised and received
       Local:
-         name: 597af3ed77f6, domain: 
+         name: 597af3ed77f6, domain:
       Remote:
-         name: af448f6bd9fd, domain: 
+         name: af448f6bd9fd, domain:
   Message statistics:
                          Sent       Rcvd
     Opens:                  1          1
@@ -172,19 +172,19 @@ BGP neighbor is 10.0.0.100, remote AS 65001
     Advertised:             1
     Received:               0
     Accepted:               0
-    
+
 root@597af3ed77f6:/go# exit
 exit
 ```
 ```
-docker exec -it gobgp_1 gobgp neighbor 
+docker exec -it gobgp_1 gobgp neighbor
 Peer          AS  Up/Down State       |#Received  Accepted
 10.0.0.200 65002 00:04:36 Establ      |        1         1
 
 docker exec -it gobgp_1  gobgp neighbor 10.0.0.200 adj-in -a ipv4
    ID  Network              Next Hop             AS_PATH              Age        Attrs
    0   10.33.0.0/16         10.0.0.200           65002                00:00:43   [{Origin: ?}]
-   
+
 docker exec -it gobgp_1  gobgp neighbor 10.0.0.200
 BGP neighbor is 10.0.0.200, remote AS 65002
   BGP version 4, remote router ID 192.168.255.0
@@ -192,7 +192,7 @@ BGP neighbor is 10.0.0.200, remote AS 65002
   BGP OutQ = 0, Flops = 0
   Hold time is 90, keepalive interval is 30 seconds
   Configured hold time is 90, keepalive interval is 30 seconds
-  
+
   Neighbor capabilities:
     multiprotocol:
         ipv4-unicast:   advertised and received
@@ -203,9 +203,9 @@ BGP neighbor is 10.0.0.200, remote AS 65002
     4-octet-as: advertised and received
     fqdn:       advertised and received
       Local:
-         name: af448f6bd9fd, domain: 
+         name: af448f6bd9fd, domain:
       Remote:
-         name: 597af3ed77f6, domain: 
+         name: 597af3ed77f6, domain:
   Message statistics:
                          Sent       Rcvd
     Opens:                  1          1
@@ -220,10 +220,10 @@ BGP neighbor is 10.0.0.200, remote AS 65002
     Received:               1
     Accepted:               1
 ```
-- Run this command to: 
-  - Stop the containers 
+- Run this command to:
+  - Stop the containers
   - Remove the containers
-  - Remove the networks 
+  - Remove the networks
 ```
 docker-compose down
 Stopping gobgp_1 ... done
@@ -232,5 +232,6 @@ Removing gobgp_1 ... done
 Removing gobgp_2 ... done
 Removing network gobgp_demo_test_net
 ```
+# Credit
 
-
+Credit goes to Pierre Dezitter for his works on this topic.
